@@ -15,7 +15,7 @@ router.get('/', (request, response) => {
         });
 });
 
-// Get one uder by id
+// Get one user by id
 router.get('/:id', (request, response) => {
     User.findOne({
             attributes: { exclude: ['password'] },
@@ -91,7 +91,7 @@ router.post('/login', (request, response) => {
         })
         .then(userData => {
             if (!userData) {
-                res.status(400).json({
+                response.status(400).json({
                     message: 'No user with that username!'
                 });
                 return;
@@ -111,7 +111,7 @@ router.post('/login', (request, response) => {
             const validPassword = userData.checkPassword(request.body.password);
 
             if (!validPassword) {
-                res.status(400).json({
+                response.status(400).json({
                     message: 'Incorrect password!'
                 });
                 return;
@@ -122,7 +122,7 @@ router.post('/login', (request, response) => {
                 request.session.username = userData.username;
                 request.session.loggedIn = true;
 
-                res.json({
+                response.renderjson({
                     user: userData,
                     message: 'You are now logged in!'
                 });

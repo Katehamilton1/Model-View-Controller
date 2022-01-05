@@ -1,6 +1,11 @@
 const router = require('express').Router();
-const { User, Blog, Comment } = require('../models');
-const Auth = require('../utils/auth');
+const sequelize = require('../config/connection');
+const {
+    User,
+    Post,
+    Comment
+} = require('../models');
+
 
 
 
@@ -22,7 +27,10 @@ router.get('/', (request, response) => {
                     'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username'],
+                    attributes: ['id',
+                     'comment_text', 
+                     'post_id', 'user_id',
+                      'created_at'],
                 },
             },
             {
@@ -37,7 +45,7 @@ router.get('/', (request, response) => {
                 }));
             response.render('homepage', {
                 posts,
-                logged_in: request.session.logged_in
+                loggedIn: request.session.loggedIn
             });
         })
         .catch((err) => {
@@ -88,7 +96,7 @@ router.get('/post/:id', (request, response) => {
                 });
             response.render('single-post', {
                 post,
-                logged_in: request.session.logged_in
+                loggedIn: request.session.loggedIn
             });
         })
         .catch((err) => {
@@ -98,7 +106,7 @@ router.get('/post/:id', (request, response) => {
 });
 
 router.get('/login', (request, response) => {
-    if (request.session.logged_in) {
+    if (request.session.loggedIn) {
         res.redirect('/');
         return;
     }
@@ -107,7 +115,7 @@ router.get('/login', (request, response) => {
 });
 
 router.get('/signup', (request, response) => {
-    if (req.session.logged_in) {
+    if (req.session.loggedIn) {
         res.redirect('/');
         return;
     }

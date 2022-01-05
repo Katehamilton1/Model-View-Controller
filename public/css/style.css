@@ -1,0 +1,15 @@
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.button {
+    background-color: #0b2341;
+    border: 0;
+    padding: 1%;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
