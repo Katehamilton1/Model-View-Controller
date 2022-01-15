@@ -13,11 +13,11 @@ const PORT = process.env.PORT || 3001;
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-// Initialize sessions
+
 const sess = {
     secret:"secret",
     cookie:{ 
-        // Session will automatically expire in 10 minutes
+
         expires: 10 * 60 * 1000},
     resave: true,
     rolling: true,
@@ -27,7 +27,7 @@ const sess = {
     })
   };
   const hbs = exphbs.create({ helpers });
-// Inform Express.js on which template engine to use
+
   app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
