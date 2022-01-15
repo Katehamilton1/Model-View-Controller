@@ -6,9 +6,6 @@ const {
     Comment
 } = require('../models');
 
-
-
-
 router.get('/', (request, response) => {
     Post.findAll({
         attributes: [
@@ -21,16 +18,13 @@ router.get('/', (request, response) => {
                 model: Comment,
                 attributes: [
                     'id',
-                    'comment_text',
-                    'post_id',
                     'user_id',
                     'created_at'],
                 include: {
                     model: User,
                     attributes: ['id',
-                     'comment_text', 
-                     'post_id', 'user_id',
-                      'created_at'],
+                     'username'
+                    ],
                 },
             },
             {
@@ -71,7 +65,6 @@ router.get('/post/:id', (request, response) => {
                 attributes: [
                     'id',
                     'comment_text',
-                    'post_id',
                     'user_id',
                     'created_at'],
                 include: {

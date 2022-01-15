@@ -63,8 +63,8 @@ router.get('/:id', (request, response) => {
 router.post('/', (request, response) => {
 
     User.create({
-        username: req.body.username,
-        password: req.body.password
+        username: request.body.username,
+        password: request.body.password
     })
 
     .then(userData => {
@@ -140,7 +140,7 @@ router.post('/logout', (request, response) => {
     }
 });
 
-// Update a post
+// Update a user
 router.put('/:id', (request, response) => {
 
     User.update(request.body, {
@@ -163,7 +163,7 @@ router.put('/:id', (request, response) => {
 
 });
 
-// delete a post
+// delete a user
 router.delete('/:id', (request, response) => {
     User.destroy({
             where: {

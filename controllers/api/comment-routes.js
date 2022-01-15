@@ -29,6 +29,25 @@ router.post('/', (request, response) => {
     }
 });
 
+router.delete('/:id', (request, response) => {
+    Comment.destroy({
+        where: {
+          id: request.params.id
+        }
+      })
+        .then(dbCommentData => {
+          if (!dbCommentData) {
+            response.status(404).json({ message: 'No comment found with this id' });
+            return;
+          }
+          response.json(dbCommentData);
+        })
+        .catch(err => {
+          console.log(err);
+          response.status(500).json(err);
+        });
+});
+
 
 
 module.exports = router;
